@@ -1,7 +1,7 @@
 export const CONFIG = {
     API: {
         KEY: 'AIzaSyCkLmOx94Qa8rdMRpzjjTJf2WGsr4caF_g',
-        BASE_URL: 'wss://ai.api.zhuifeng.org/ws',
+        BASE_URL: 'wss://generativelanguage.googleapis.com/ws',
         VERSION: 'v1alpha',
         MODEL_NAME: 'models/gemini-2.0-flash-exp'
     },
@@ -9,11 +9,15 @@ export const CONFIG = {
     SYSTEM_INSTRUCTION: {
         TEXT: 'You are my helpful assistant. You can see and hear me, and respond with voice and text. If you are asked about things you do not know, you can use the google search tool to find the answer.',
     },
+    // Model's voice
+    VOICE: {
+        NAME: 'Aoede' // You can choose one from: Puck, Charon, Kore, Fenrir, Aoede (Kore and Aoede are female voices, rest are male)
+    },
     // Default audio settings
     AUDIO: {
-        SAMPLE_RATE: 16000,
+        INPUT_SAMPLE_RATE: 16000,
         OUTPUT_SAMPLE_RATE: 24000,      // If you want to have fun, set this to around 14000 (u certainly will)
-        BUFFER_SIZE: 2048,
+        BUFFER_SIZE: 7680,
         CHANNELS: 1
     },
     // If you are working in the RoArm branch 
