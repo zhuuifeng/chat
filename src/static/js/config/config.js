@@ -1,5 +1,7 @@
 export const CONFIG = {
     API: {
+        KEY: 'AIzaSyCkLmOx94Qa8rdMRpzjjTJf2WGsr4caF_g',
+        BASE_URL: 'wss://ai.api.zhuifeng.org/ws',
         VERSION: 'v1alpha',
         MODEL_NAME: 'models/gemini-2.0-flash-exp'
     },
