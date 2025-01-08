@@ -17,11 +17,11 @@ export class MultimodalLiveClient extends EventEmitter {
      *
      * @param {Object} options - Configuration options.
      * @param {string} [options.url] - The WebSocket URL for the Gemini API. Defaults to a URL constructed with the provided API key.
+     * @param {string} options.apiKey - Your API key for the Gemini API.
      */
-    constructor() {
+    constructor({ url, apiKey }) {
         super();
-        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        this.url = url || `wss://ai.api.zhuifeng.org/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
+        this.url = url || `wss://ai.api.zhuifeng.org/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;;
         this.ws = null;
         this.config = null;
         this.send = this.send.bind(this);
@@ -56,7 +56,7 @@ export class MultimodalLiveClient extends EventEmitter {
      * @returns {Promise<boolean>} - Resolves with true when the connection is established.
      * @throws {ApplicationError} - Throws an error if the connection fails.
      */
-    connect(config,apiKey) {
+    connect(config) {
         this.config = {
             ...config,
             tools: [
@@ -64,7 +64,7 @@ export class MultimodalLiveClient extends EventEmitter {
                 ...(config.tools || [])
             ]
         };
-        const ws = new WebSocket(`${this.baseUrl}?key=${apiKey}`);
+        const ws = new WebSocket(this.url);
 
         ws.addEventListener('message', async (evt) => {
             if (evt.data instanceof Blob) {
@@ -180,7 +180,7 @@ export class MultimodalLiveClient extends EventEmitter {
                     if (b64) {
                         const data = base64ToArrayBuffer(b64);
                         this.emit('audio', data);
-                        //this.log(`server.audio`, `buffer (${data.byteLength})`);
+                        this.log(`server.audio`, `buffer (${data.byteLength})`);
                     }
                 });
 
@@ -224,7 +224,7 @@ export class MultimodalLiveClient extends EventEmitter {
 
         const data = { realtimeInput: { mediaChunks: chunks } };
         this._sendDirect(data);
-        //this.log(`client.realtimeInput`, message);
+        this.log(`client.realtimeInput`, message);
     }
 
     /**
